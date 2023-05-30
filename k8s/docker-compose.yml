@@ -44,7 +44,7 @@ services:
     deploy:
       replicas: 2
     ports:
-     - 8080:8080
+     - 8085:8080
     labels:
       kompose.image-pull-secret: "regcred"
       kompose.service.expose: "petclinic04.thich48.eu"

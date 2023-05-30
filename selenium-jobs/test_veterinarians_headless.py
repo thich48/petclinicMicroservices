@@ -16,7 +16,7 @@ driver = webdriver.Chrome(options=chrome_options)
 
 # Connect to the application
 APP_IP = os.environ['MASTER_PUBLIC_IP']
-url = "http://"+APP_IP.strip()+":8080/"
+url = "http://"+APP_IP.strip()+":8089/"
 print(url)
 driver.get(url)
 vet_link = driver.find_element_by_link_text("VETERINARIANS")

@@ -541,7 +541,7 @@ services:
         "/app.jar",
       ]
     ports:
-      - 8080:8080
+      - 8085:8080
 
   tracing-server:
     image: openzipkin/zipkin
@@ -794,7 +794,7 @@ driver = webdriver.Chrome(options=chrome_options)
 
 # Connect to the application
 APP_IP = os.environ['MASTER_PUBLIC_IP']
-url = "http://"+APP_IP.strip()+":8080/"
+url = "http://"+APP_IP.strip()+":8089/"
 print(url)
 driver.get(url)
 sleep(3)
@@ -833,7 +833,7 @@ driver = webdriver.Chrome(options=chrome_options)
 
 # Connect to the application
 APP_IP = os.environ['MASTER_PUBLIC_IP']
-url = "http://"+APP_IP.strip()+":8080/"
+url = "http://"+APP_IP.strip()+":8089/"
 print(url)
 driver.get(url)
 owners_link = driver.find_element_by_link_text("OWNERS")
@@ -894,7 +894,7 @@ driver = webdriver.Chrome(options=chrome_options)
 
 # Connect to the application
 APP_IP = os.environ['MASTER_PUBLIC_IP']
-url = "http://"+APP_IP.strip()+":8080/"
+url = "http://"+APP_IP.strip()+":8089/"
 print(url)
 driver.get(url)
 sleep(3)
@@ -1812,7 +1812,7 @@ services:
     networks:
       - clarusnet
     ports:
-      - 8080:8080
+      - 8085:8080
 
   tracing-server:
     image: openzipkin/zipkin
@@ -2606,7 +2606,7 @@ services:
     networks:
       - clarusnet
     ports:
-      - 8080:8080
+      - 8085:8080
 
   tracing-server:
     image: openzipkin/zipkin
@@ -2969,7 +2969,7 @@ services:
     deploy:
       replicas: 2
     ports:
-      - 8080:8080
+      - 8085:8080
     labels:
       kompose.image-pull-secret: "regcred"
       kompose.service.expose: "petclinic04.thich48.eu"
