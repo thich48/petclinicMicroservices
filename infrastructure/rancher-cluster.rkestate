@@ -13,7 +13,7 @@
           ],
           "hostnameOverride": "172.31.72.118",
           "user": "ubuntu",
-          "sshKeyPath": "~/.ssh/adam-rancher.key"
+          "sshKeyPath": "~/.ssh/hich-rancher.key"
         }
       ],
       "services": {
@@ -123,7 +123,7 @@
         "metricsServer": "rancher/metrics-server:v0.3.6",
         "windowsPodInfraContainer": "rancher/kubelet-pause:v0.1.4"
       },
-      "sshKeyPath": "~/.ssh/adam-rancher.key",
+      "sshKeyPath": "~/.ssh/hich-rancher.key",
       "sshAgentAuth": false,
       "authorization": {
         "mode": "rbac"
@@ -355,7 +355,7 @@
           ],
           "hostnameOverride": "172.31.72.118",
           "user": "ubuntu",
-          "sshKeyPath": "~/.ssh/adam-rancher.key"
+          "sshKeyPath": "~/.ssh/hich-rancher.key"
         }
       ],
       "services": {
@@ -465,7 +465,7 @@
         "metricsServer": "rancher/metrics-server:v0.3.6",
         "windowsPodInfraContainer": "rancher/kubelet-pause:v0.1.4"
       },
-      "sshKeyPath": "~/.ssh/adam-rancher.key",
+      "sshKeyPath": "~/.ssh/hich-rancher.key",
       "sshAgentAuth": false,
       "authorization": {
         "mode": "rbac"
