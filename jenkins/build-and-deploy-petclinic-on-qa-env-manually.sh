@@ -1,8 +1,8 @@
 PATH="$PATH:/usr/local/bin"
 APP_NAME="petclinic"
-APP_REPO_NAME="adams-repo/petclinic-app-qa"
-APP_STACK_NAME="Adam-petclinic-App-QA-1"
-CFN_KEYPAIR="adam-petclinic-qa.key"
+APP_REPO_NAME="hichs-repo/petclinic-app-qa"
+APP_STACK_NAME="hich-petclinic-App-QA-1"
+CFN_KEYPAIR="hich-petclinic-qa.key"
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 AWS_REGION="eu-west-1"
 ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"

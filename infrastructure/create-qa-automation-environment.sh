@@ -1,12 +1,12 @@
 # Environment variables
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
-CFN_KEYPAIR="adam-$APP_NAME-dev-${BUILD_NUMBER}.key"
+CFN_KEYPAIR="hich-$APP_NAME-dev-${BUILD_NUMBER}.key"
 CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="eu-west-1"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
-export APP_STACK_NAME="Adam-$APP_NAME-App-${BUILD_NUMBER}"
+export APP_STACK_NAME="hich-$APP_NAME-App-${BUILD_NUMBER}"
 # Create key pair for Ansible
 aws ec2 create-key-pair --region ${AWS_REGION} --key-name ${CFN_KEYPAIR} --query "KeyMaterial" --output text > ${CFN_KEYPAIR}
 chmod 400 ${CFN_KEYPAIR}

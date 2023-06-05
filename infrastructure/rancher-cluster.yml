@@ -10,7 +10,7 @@ services:
     creation: 6h
     retention: 24h
 
-ssh_key_path: ~/.ssh/adam-rancher.key
+ssh_key_path: ~/.ssh/hich-rancher.key
 
 # Required for external TLS termination with
 # ingress-nginx v0.22+
