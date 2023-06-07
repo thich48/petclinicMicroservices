@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base2
+    kompose.image-pull-secret: regcred
+    kompose.service.expose: petclinic04.thich48.eu
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: api-gateway
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base2
+        kompose.image-pull-secret: regcred
+        kompose.service.expose: petclinic04.thich48.eu
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/k8s-default: "true"
+        io.kompose.service: api-gateway
+    spec:
+      containers:
+        - image: IMAGE_TAG_API_GATEWAY
+          name: api-gateway
+          ports:
+            - containerPort: 8080
+          resources: {}
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base2
+    kompose.image-pull-secret: regcred
+    kompose.service.expose: petclinic04.thich48.eu
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api-gateway
+  name: api-gateway
+spec:
+  ports:
+    - name: "8085"
+      port: 8085
+      targetPort: 8080
+  selector:
+    io.kompose.service: api-gateway
+status:
+  loadBalancer: {}
