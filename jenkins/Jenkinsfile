@@ -1,0 +1,32 @@
+PATH="$PATH:/usr/local/bin"
+APP_REPO_NAME="thich48-repo/petclinic-app-staging" # Indiquez le nom de votre référentiel
+AWS_REGION="eu-west-1" # Mettez à jour cette ligne si vous travaillez dans une autre région
+ECR_REGISTRY="390665570631.dkr.ecr.eu-west-1.amazonaws.com"
+
+echo "Create ECR Repository"
+aws ecr create-repository \
+    --repository-name ${APP_REPO_NAME} \
+    --image-scanning-configuration scanOnPush=false \
+    --image-tag-mutability MUTABLE \
+    --region ${AWS_REGION}
+
+# Package with Maven Container
+. ./jenkins/package-with-maven-container.sh
+
+# Prepare ECR Tags for staging Docker Images
+. ./jenkins/prepare-tags-ecr-for-staging-docker-images.sh
+
+# Build staging Docker Images for ECR
+. ./jenkins/build-staging-docker-images-for-ecr.sh
+
+# Push staging Docker Images to ECR
+. ./jenkins/push-staging-docker-images-to-ecr.sh
+
+# EKS Deploy
+export AWS_ACCESS_KEY_ID="AKIAVV5L3RFDUVWU23MC"
+export AWS_SECRET_ACCESS_KEY="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"
+export AWS_DEFAULT_REGION=${AWS_REGION}
+
+aws eks update-kubeconfig --name eks-petclinic
+
+kubectl apply -f k8s/base2 --recursive
