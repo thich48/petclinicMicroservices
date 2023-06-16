@@ -4,7 +4,7 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base
     kompose.image-pull-secret: regcred
-    kompose.version: 1.22.0 (955b78124)
+    kompose.version: 1.28.0 (c4137012e)
   creationTimestamp: null
   labels:
     io.kompose.service: discovery-server
@@ -20,7 +20,7 @@ spec:
       annotations:
         kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base
         kompose.image-pull-secret: regcred
-        kompose.version: 1.22.0 (955b78124)
+        kompose.version: 1.28.0 (c4137012e)
       creationTimestamp: null
       labels:
         io.kompose.service: discovery-server

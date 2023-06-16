@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base2
+    kompose.image-pull-secret: regcred
+    kompose.service.expose: petclinic.ademsimsek.com
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: customers-service
+  name: customers-service
+spec:
+  rules:
+    - host: petclinic.ademsimsek.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: customers-service
+                port:
+                  number: 8081
+            path: /
+            pathType: Prefix
+status:
+  loadBalancer: {}

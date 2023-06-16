@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  VpcId:vpc-0f70f14ea0bf50bab
+    Type: String
+    Description: VPC ID where the EKS cluster will be deployed
+
+Resources:
+  EKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: MyEksCluster
+      ResourcesVpcConfig:
+        VpcId: !Ref vpc-0f70f14ea0bf50bab
+
+  EKSPublicWorkerAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: EKS-public-workers
+      MinSize: 1
+      MaxSize: 2
+      DesiredCapacity: 2
+      LaunchTemplate:
+        LaunchTemplateId: !Ref EKSPublicWorkerLaunchTemplate
+        Version: !GetAtt EKSPublicWorkerLaunchTemplate.LatestVersionNumber
+      VPCZoneIdentifier: !Ref PublicSubnetIds
+
+  EKSPublicWorkerLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: EKS-public-worker-template
+      LaunchTemplateData:
+        InstanceType: t2.medium
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: true
+            DeviceIndex: 0
+            Groups:
+              - !Ref EKSWorkerSecurityGroup
+
+  EKSPrivateWorkerAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: EKS-private-workers
+      MinSize: 1
+      MaxSize: 2
+      DesiredCapacity: 1
+      LaunchTemplate:
+        LaunchTemplateId: !Ref EKSPrivateWorkerLaunchTemplate
+        Version: !GetAtt EKSPrivateWorkerLaunchTemplate.LatestVersionNumber
+      VPCZoneIdentifier: !Ref PrivateSubnetIds
+
+  EKSPrivateWorkerLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: EKS-private-worker-template
+      LaunchTemplateData:
+        InstanceType: t2.medium
+        NetworkInterfaces:
+          - AssociatePublicIpAddress: false
+            DeviceIndex: 0
+            Groups:
+              - !Ref EKSWorkerSecurityGroup
+
+  EKSWorkerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EKS worker nodes
+      VpcId: !Ref vpc-0f70f14ea0bf50bab
+
+Outputs:
+  ClusterName:
+    Description: EKS Cluster Name
+    Value: !Ref EKSCluster
+  EKSPublicWorkerAutoScalingGroup:
+    Description: EKS Public Worker Auto Scaling Group
+    Value: !Ref EKSPublicWorkerAutoScalingGroup
+  EKSPrivateWorkerAutoScalingGroup:
+    Description: EKS Private Worker Auto Scaling Group
+    Value: !Ref EKSPrivateWorkerAutoScalingGroup
+

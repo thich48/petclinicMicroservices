@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f k8s/docker-compose.yml -o k8s/base2
+    kompose.image-pull-secret: regcred
+    kompose.service.expose: petclinic04.thich48.eu
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: vets-service
+  name: vets-service
+spec:
+  rules:
+    - host: petclinic04.thich48.eu
+      http:
+        paths:
+          - backend:
+              service:
+                name: vets-service
+                port:
+                  number: 8083
+            path: /
+            pathType: Prefix
+status:
+  loadBalancer: {}
